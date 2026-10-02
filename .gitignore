@@ -12,3 +12,6 @@ wheels/
 
 # Logging
 logs/
+
+# Media
+media/
