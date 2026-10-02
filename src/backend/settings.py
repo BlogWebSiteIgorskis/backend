@@ -23,6 +23,7 @@ THIRD_PARTY_APPS = [
     'seckeyenv',
     'phonenumber_field',
     'django_celery_results',
+    'gmailapi_backend',
 ]
 
 LOCAL_APPS = [
@@ -105,9 +106,23 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 MAILERS = {
     'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        'BACKEND': 'gmailapi_backend.mail.GmailBackend',
+        'OPTIONS': {
+            'client_id': config("CLIENT_ID"),
+            'client_secret': config("CLIENT_SECRET"),
+            'refresh_token': config("REFRESH_TOKEN"),
+        }
     },
 }
+
+DEFAULT_FROM_EMAIL = config("EMAIL")
+
+CELERY_BROKER_URL = config("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
 
 LOGS_DIR = BASE_DIR / "logs"
 LOGS_DIR.mkdir(exist_ok=True)

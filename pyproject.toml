@@ -9,8 +9,13 @@ dependencies = [
     "dj-database-url>=3.1.2",
     "django>=6.1.1",
     "django-celery-results>=2.6.0",
+    "django-gmailapi-backend>=0.3.4",
     "django-phonenumber-field>=8.5.0",
     "djangosecretkeyenv>=0.2.0",
+    "flower>=2.2.0",
+    "google-api-python-client>=2.201.0",
+    "google-auth-httplib2>=0.4.4",
+    "google-auth-oauthlib>=1.5.0",
     "phonenumbers>=9.0.40",
     "pillow>=12.3.0",
     "psycopg2>=2.9.13",
@@ -21,6 +26,9 @@ dependencies = [
 [project.scripts]
 backend = "manage:main"
 startapp = "startapp:main"
+token = "get_token:main"
+worker = "run_celery:start_worker"
+flower = "run_celery:start_flower"
 
 [build-system]
 requires = ["uv_build>=0.12.7,<0.13.0"]
